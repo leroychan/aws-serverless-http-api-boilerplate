@@ -1,0 +1,7 @@
+{
+    "HelloWorldApi": {
+        "ENVIRONMENT": "prod",
+        "TABLE_NAME": "HelloWorldApi-Table-prod",
+        "APPLICATION_NAME": "HelloWorldApi"
+    }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "nodejs",
+  "version": "1.0.0",
+  "description": "Dependency Layer for Lambda Functions",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Leroy Chan",
+  "license": "ISC",
+  "dependencies": {
+    "aws-embedded-metrics": "^1.1.1",
+    "aws-xray-sdk": "^3.1.0",
+    "moment": "^2.27.0",
+    "moment-timezone": "^0.5.31",
+    "request": "^2.88.2",
+    "request-promise-native": "^1.0.8",
+    "uuid": "^8.1.0",
+    "winston": "^3.2.1"
+  }
+}

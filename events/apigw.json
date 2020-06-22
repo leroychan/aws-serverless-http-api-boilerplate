@@ -1,0 +1,40 @@
+{
+  "version": "2.0",
+  "routeKey": "GET /helloworld",
+  "rawPath": "/helloworld",
+  "rawQueryString": "",
+  "headers": {
+      "accept": "*/*",
+      "accept-encoding": "gzip, deflate, br",
+      "cache-control": "no-cache",
+      "content-length": "66",
+      "content-type": "application/json",
+      "host": "gf0fe89lc2.execute-api.ap-southeast-1.amazonaws.com",
+      "postman-token": "3970bbd8-82f3-401e-9ab8-f8b43f56ad1d",
+      "user-agent": "PostmanRuntime/7.25.0",
+      "x-amzn-trace-id": "Root=1-5eef670c-3ed508d0be4aaa2a652a92db",
+      "x-forwarded-for": "116.14.207.241",
+      "x-forwarded-port": "443",
+      "x-forwarded-proto": "https"
+  },
+  "requestContext": {
+      "accountId": "748666506640",
+      "apiId": "gf0fe89lc2",
+      "domainName": "gf0fe89lc2.execute-api.ap-southeast-1.amazonaws.com",
+      "domainPrefix": "gf0fe89lc2",
+      "http": {
+          "method": "GET",
+          "path": "/helloworld",
+          "protocol": "HTTP/1.1",
+          "sourceIp": "116.14.207.241",
+          "userAgent": "PostmanRuntime/7.25.0"
+      },
+      "requestId": "Oe0J_huxyQ0EPpA=",
+      "routeKey": "GET /helloworld",
+      "stage": "$default",
+      "time": "21/Jun/2020:13:56:28 +0000",
+      "timeEpoch": 1592747788681
+  },
+  "body": "{\n\t\"id\": \"8\",\n\t\"hehe\": \"haha\",\n\t\"test\": \"7\",\n\t\"test2\": \"huat ah\"\n}",
+  "isBase64Encoded": false
+}

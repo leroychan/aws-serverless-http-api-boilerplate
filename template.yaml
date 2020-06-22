@@ -1,0 +1,117 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Serverless RESTful API on AWS
+
+# Global Settings
+Globals:
+  Function:
+    Timeout: 5
+    Tracing: Active
+    MemorySize: 128
+  Api:
+    TracingEnabled: true
+    EndpointConfiguration: REGIONAL
+
+# Parameters
+Parameters:
+  ApplicationName:
+    Type: String
+    Description: Application Name
+    Default: HelloWorldApi
+  Environment:
+    Type: String
+    Description: Environment Name
+    Default: prod
+  OwnerName:
+    Type: String
+    Description: Owner's name for tagging purposes
+    Default: Leroy Chan
+
+Resources: 
+  # Hello World API
+  HelloWorldApi:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${ApplicationName}-${Environment}
+      CodeUri: function-hello-world/
+      Handler: index.handler
+      Layers:
+        - !Ref LambdaDepLayer
+      Runtime: nodejs12.x
+      Tags:
+        Owner: !Ref OwnerName
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref HelloWorldTable
+      Environment:
+        Variables:
+          ENVIRONMENT: !Ref Environment
+          TABLE_NAME: !Ref HelloWorldTable
+          APPLICATION_NAME: !Ref ApplicationName
+      Events:
+        HelloWorldCreateEvent:
+          Type: HttpApi
+          Properties:
+            Path: /helloworld
+            Method: post
+        HelloWorldGetAllEvent:
+          Type: HttpApi
+          Properties:
+            Path: /helloworld
+            Method: get
+        HelloWorldGetEvent:
+          Type: HttpApi
+          Properties:
+            Path: /helloworld/{id}
+            Method: get
+        HelloWorldUpdateEvent:
+          Type: HttpApi
+          Properties:
+            Path: /helloworld/{id}
+            Method: put
+        HelloWorldDeleteEvent:
+          Type: HttpApi
+          Properties:
+            Path: /helloworld/{id}
+            Method: delete
+        HelloWorldCatchAllEvent:
+          Type: HttpApi
+          Properties:
+            Path: /{proxy+}
+            Method: Any
+
+  # Hello World Table
+  HelloWorldTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub ${ApplicationName}-Table-${Environment}
+      BillingMode: PAY_PER_REQUEST
+      Tags:
+        -
+          Key: Owner
+          Value: !Ref OwnerName
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+  
+  # Lambda Dependency Layer
+  LambdaDepLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: sam-http-api-dependencies
+      Description: Dependencies for serverless HTTP apis
+      ContentUri: layer-dependencies/
+      CompatibleRuntimes:
+        - nodejs12.x
+      LicenseInfo: 'MIT'
+      RetentionPolicy: Retain
+
+#Output          
+Outputs:
+  HelloWorldEndpoint:
+    Value: !Sub "https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/helloworld"
+    Description: API Endpoint for Hello World Application          

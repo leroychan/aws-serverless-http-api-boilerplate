@@ -36,6 +36,7 @@ Resources:
       FunctionName: !Sub ${ApplicationName}-${Environment}
       CodeUri: function-hello-world/
       Handler: index.handler
+      ReservedConcurrentExecutions: 10
       Layers:
         - !Ref LambdaDepLayer
       Runtime: nodejs12.x
